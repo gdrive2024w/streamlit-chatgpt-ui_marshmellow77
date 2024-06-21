@@ -70,7 +70,7 @@ def generate_response(prompt):
         model=model,
         messages=st.session_state['messages']
     )
-    response = completion.choices[0].message.content
+    response = await completion.choices[0].message.content
     st.session_state['messages'].append({"role": "assistant", "content": response})
 
     # print(st.session_state['messages'])
