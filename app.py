@@ -3,6 +3,9 @@ import openai
 import streamlit as st
 from streamlit_chat import message
 
+from openai import AsyncOpenAI
+
+
 # Setting page title and header
 st.set_page_config(page_title="AVA", page_icon=":robot_face:")
 st.markdown("<h1 style='text-align: center;'>AVA - a totally harmless chatbot 😬</h1>", unsafe_allow_html=True)
@@ -61,7 +64,9 @@ if clear_button:
 def generate_response(prompt):
     st.session_state['messages'].append({"role": "user", "content": prompt})
 
-    completion = openai.ChatCompletion.create(
+    # completion = openai.ChatCompletion.create(
+    client = AsyncOpenAI()
+    completion = client.chat.completions.create(
         model=model,
         messages=st.session_state['messages']
     )
